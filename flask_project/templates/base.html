@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ title }}</title>
+    <style>
+        /* Стили для меню */
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #5560f183;
+        }
+
+        li {
+            float: left;
+            width: 33.33%;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+        body {
+            text-align: center;
+            padding: 200px;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <ul>
+            <li>{{ but }}</li>
+    </ul>
+</nav>
+{% block content -%}
+    {%- block mainmenu -%}
+    <ul>
+        {% for m in menu -%}
+        <li>{{m}}</li>
+        {% endfor -%}
+    </ul>
+    {% endblock mainmenu -%}
+{% endblock -%}
+</body>

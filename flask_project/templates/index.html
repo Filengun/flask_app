@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+    <h1>Добро пожаловать!  Это {{ title|lower }}</h1>
+    <p>Здесь вы можете найти случайную информацию.</p>
+    <p>Например, вот случайное число: <span id="randomNumber"></span></p>
+
+    <script>
+        // Генерация случайного числа
+        var randomNumber = Math.floor(Math.random() * 100) + 1;
+
+        // Вывод случайного числа на страницу
+        document.getElementById("randomNumber").innerHTML = randomNumber;
+    </script>
+{% endblock %}
