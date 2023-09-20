@@ -1,54 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-    <style>
-        /* Стили для меню */
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #5560f183;
-        }
+{% extends 'base.html' %}
 
-        li {
-            float: left;
-            width: 33.33%;
-        }
-
-        li a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        li a:hover {
-            background-color: #111;
-        }
-        body {
-            text-align: center;
-            padding: 200px;
-        }
-    </style>
-</head>
-<nav>
-    <ul>
-        {% for but in menu %}
-            <li>{{ but }}</li>
-        {% endfor %}
-    </ul>
-</nav>
-<body>
-
+{% block content %}
+{{ super() }}
     <h1>{{ title }}</h1>
-    <p>Мы рады приветствовать вас на нашей странице! Здесь вы найдете подробную информацию о нашей компании, 
+    <p>{{username|capitalize}}, мы рады приветствовать вас на нашей странице! Здесь вы найдете подробную информацию о нашей компании, 
         ее истории, основных направлениях деятельности, а также о продукции, которую мы предлагаем. Мы постоянно работаем 
         над улучшением качества наших товаров и услуг, чтобы удовлетворить все потребности наших клиентов. Спасибо за ваше доверие и надеемся 
         на долгосрочное сотрудничество!
     </p>
-</body>
-</html>
+{% endblock %}

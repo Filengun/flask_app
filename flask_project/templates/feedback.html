@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+
+    <form action="/feedback/" method="post">
+        <p><label>Имя: </label> <input type="text" name="username" value="" requied />
+        <p><label>Email: </label> <input type="text" name="email" value="" requied />
+        <p><label>Сообщение:</label>
+        <p><textarea name="message" rows=7 cols=40></textarea>
+        <div class="container">
+            <input type="submit" value="Отправить" /> 
+        {% for cat, msg in get_flashed_messages(True) %}
+            <div class="flash {{cat}}">{{msg}}</div>
+        {% endfor %}
+        </div>
+    </form>
+
+{% endblock %}
