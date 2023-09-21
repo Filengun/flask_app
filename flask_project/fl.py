@@ -1,9 +1,7 @@
-from flask import (Flask, flash, redirect, render_template, request, session,
+from db_functions import get_db
+from flask import (abort, flash, redirect, render_template, request, session,
                    url_for)
-
-app = Flask(__name__)
-app.config["SECRET_KEY"] = "asdgegsdf8a7er03rhosfhaowfyq93r3oiofh"
-
+from settings import app
 
 menu = [
     {"name": "Главная", "url": "index"},
@@ -35,17 +33,19 @@ def index():
 
 @app.route('/about/')
 def about():
-    # print(url_for('about', username='filengun'))
+    data = get_db()
+    print(data)
     return render_template(
         'about.html',
         title='About Us!',
         menu=menu,
-        # username=username
     )
 
 
 @app.route('/feedback/', methods=["POST", "GET"])
 def feedback():
+    if 'userLogged' not in session:
+        abort(401)
     # пока нет бд так что не юзабельно и чисто для наглядности
     if request.method == "POST":
         print(request.form)
@@ -59,20 +59,22 @@ def feedback():
 
 @app.route("/login/", methods=["POST", "GET"])
 def login():
-    if "userLogin" in session:
+    if "userLogged" in session:
         return redirect(url_for("index"))
-    elif (
-        request.method == "POST"
-        and request.form["username"] == "filengun"
-        and request.form["psw"] == "1234"
-    ):
 
-        session['userLogged'] = request.form['username']
-        return redirect(url_for("index"))
-    if request.form["username"] != "filengun":
-        flash('Неправильный логин', category='error')
-    elif request.form["psw"] != "1234":
-        flash('Неправильный пароль', category='error')
+    elif request.method == "POST":
+        if request.form["username"] != "filengun":
+            flash('Неправильный логин', category='error')
+        elif request.form["psw"] != "1234":
+            flash('Неправильный пароль', category='error')
+
+        elif (
+            request.form["username"] == "filengun"
+            and request.form["psw"] == "1234"
+        ):
+            session['userLogged'] = request.form['username']
+            return redirect(url_for("index"))
+
     return render_template("login.html", title="Авторизация", menu=menu)
 
 
